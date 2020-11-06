@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbar';
+import MyNavbar from './components/MyNavbar';
 import ProductList from './components/ProductList';
 import Details from './components/Details';
 import Cart from './components/Cart';
@@ -12,7 +12,7 @@ import Default from './components/Default';
 function App() {
   return (
     <React.Fragment>
-      <Navbar />
+      <MyNavbar />
       <Switch>
         <Route exact path='/' component={ProductList} />
         <Route path='/details' component={Details} />
