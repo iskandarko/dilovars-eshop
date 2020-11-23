@@ -5,17 +5,22 @@ import { ProductConsumer } from '../context';
 import { Container, Row} from 'react-bootstrap';
 
 class ProductList extends Component {
-    state = {  }
     render() { 
         return ( 
-            <div>
-                <Title name="Все" title="Товары" />
-                <Container className="justify-content-center"> 
+            <div className="py-5">
+                <Container> 
+                    <Title name="Все" title="товары" />
                     <Row>
                         <ProductConsumer>
                             {value => {
                                 return value.products.map(product => {
-                                    return <Product key={product.id} product={product} />
+                                    return (<Product 
+                                                key={value.products.indexOf(product)} 
+                                                product={product} 
+                                                handleDetails={value.handleDetails}
+                                                openModal={value.openModal}
+                                                addToCart={value.addToCart}
+                                            />);
                                 });
                             }}
                         </ProductConsumer>

@@ -7,11 +7,11 @@ class MyNavbar extends Component {
         return ( 
             <header>
                 <Navbar bg="dark" variant="dark" expand="sm">
-                    <Navbar.Brand href="/">D-Shop</Navbar.Brand>
+                    <Navbar.Brand href="/products">D-Shop</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="/">Товары</Nav.Link>
+                            <Nav.Link href="/products">Все товары</Nav.Link>
                         </Nav>
                         <Nav className="ml-auto">
                             <Nav.Link href="/cart">Корзина</Nav.Link>

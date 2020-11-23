@@ -6,6 +6,7 @@ import MyNavbar from './components/MyNavbar';
 import ProductList from './components/ProductList';
 import Details from './components/Details';
 import Cart from './components/Cart';
+import MyModal from './components/MyModal';
 import Default from './components/Default';
 
 function App() {
@@ -13,11 +14,12 @@ function App() {
     <React.Fragment>
       <MyNavbar />
       <Switch>
-        <Route exact path='/' component={ProductList} />
-        <Route path='/details' component={Details} />
+        <Route exact path='/products' component={ProductList} />
+        <Route path='/products/:id' component={Details} />
         <Route path='/cart' component={Cart} />
         <Route component={Default} />
       </Switch>
+      <MyModal />
     </React.Fragment>
   );
 }

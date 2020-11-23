@@ -1,26 +1,58 @@
 import React, { Component } from 'react';
 import { Col, Card, Button, Container } from 'react-bootstrap';
+import {PropTypes} from 'prop-types';
+import {Link} from 'react-router-dom';
 
-
-const Product = (props) => {
-    return (
-            <Col className="mb-3" xs lg="4">
-                    <Card style={{ width: '18rem' }} className="m-auto">
-                        <Card.Img variant="top" src={props.product.img} />
-                        <Card.Body>
-                            <Card.Title>{props.product.title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content. {props.product.price}$
-                            </Card.Text>
-                            <Button variant="primary">В корзину</Button>
-                        </Card.Body>
-                    </Card>
+class Product extends Component {
+    render() { 
+        const { id, title, img, price, inCart } = this.props.product;
+        const handleDetails = this.props.handleDetails;
+        return ( 
+            <Col className="my-3 mx-auto mx-sm-0" xs="10" sm="6" lg="4" xl="3">
+                <Card onClick={() => {handleDetails(id)}}>
+                    <Link to={"/products/" + id}>
+                        <Card.Img 
+                            variant="top" 
+                            src={img} 
+                            alt="product" 
+                            className="p-5"
+                        />
+                    </Link>
+                    <Card.Body className="p-0">
+                        <div className="d-flex justify-content-end">
+                            <Button 
+                                variant="success" 
+                                disabled={inCart} 
+                                onClick={() => {
+                                    this.props.openModal(id);
+                                    this.props.addToCart(id);
+                                }}
+                            >
+                                {inCart ? "В корзине" : "Добавить"}
+                            </Button>
+                        </div>
+                        <Card.Footer className="d-flex justify-content-between">
+                            <p className="align-self-center mb-0">{title}</p>
+                            <h5 className="mb-0">{price}руб</h5>
+                        </Card.Footer>
+                    </Card.Body>
+                </Card>
             </Col>
-    );
+         );
+    }
 }
-
-
+ 
+//Setting the required types for the props values (throws an error to the console, if not matched)
+Product.propTypes = {
+    product: PropTypes.shape({
+        id: PropTypes.number,
+        img: PropTypes.string,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        inCart: PropTypes.bool,
+        total: PropTypes.number
+    }).isRequired
+}
 
  
 export default Product;
