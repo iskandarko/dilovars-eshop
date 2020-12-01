@@ -6,29 +6,6 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
-    // state = {
-    //     detailsProduct: {}
-    // }
-
-    // componentDidMount() {
-    //     this.setProduct();
-    // }
-
-    // setProduct() { 
-    //     console.log("hello from setProduct")
-    //     console.log(this.props.match.params.id)
-    //     let theProduct;
-    //     storeProducts.forEach(item => {
-    //         if (item.id === parseInt(this.props.match.params.id, 10)) {
-    //             console.log("hello from if statement in details")
-    //             theProduct = {...item};
-    //             this.setState(() => {
-    //                 return {detailsProduct: theProduct}
-    //             });
-    //         }
-    //     });
-    // }
-
     render() { 
         return(
             <div>
@@ -39,7 +16,7 @@ class Details extends Component {
                             <Container className="my-5">
                                 <Row>
                                     <Col className="my-3 mx-auto" xs="9" md="6">
-                                        <Image src={img} fluid />
+                                        <Image src={img} alt="изображение_лота" fluid />
                                     </Col>
                                     <Col className="my-3 mx-auto" xs="9" md="6">
                                         <h2>{title}</h2>

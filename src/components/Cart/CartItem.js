@@ -11,6 +11,7 @@ const CartItem = (props) => {
                         src={img} 
                         style={{height:"5rem", width:"5rem"}}
                         className="img-fluid"
+                        alt="изображение_лота"
                     />
                 </div>
                 <div className="col-10 col-lg-2 mx-auto mt-2">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProductConsumer } from "../../context";
 import CartItem from "./CartItem";
 
 const CartList = (props) => {

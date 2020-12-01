@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Card, Button, Container } from 'react-bootstrap';
+import { Col, Card, Button } from 'react-bootstrap';
 import {PropTypes} from 'prop-types';
 import {Link} from 'react-router-dom';
 
@@ -14,7 +14,7 @@ class Product extends Component {
                         <Card.Img 
                             variant="top" 
                             src={img} 
-                            alt="product" 
+                            alt="изображение_лота"
                             className="p-5"
                         />
                     </Link>
