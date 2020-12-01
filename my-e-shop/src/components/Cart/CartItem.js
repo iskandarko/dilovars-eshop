@@ -6,33 +6,31 @@ const CartItem = (props) => {
     return ( 
         <>
             <div className="row my-lg-3 my-5 text-capitalize text-center">
-                <div className="col-10 col-lg-2 mx-auto">
+                <div className="col-10 col-lg-2 mx-auto mt-2">
                     <img 
                         src={img} 
                         style={{height:"5rem", width:"5rem"}}
                         className="img-fluid"
                     />
                 </div>
-                <div className="col-10 col-lg-2 mx-auto">
-                    <span className="d-lg-none">название: </span>
+                <div className="col-10 col-lg-2 mx-auto mt-2">
                     {title}
                 </div>
-                <div className="col-10 col-lg-2 mx-auto">
-                    <span className="d-lg-none">цена: </span>
-                    {price}
+                <div className="col-10 col-lg-2 mx-auto mt-2">
+                    {price}<span className="d-lg-none"> ₽</span>
                 </div>
-                <div className="col-10 col-lg-2 mx-auto">
-                    <span className="d-lg-none">количество: </span>
+                <div className="col-10 col-lg-2 mx-auto mt-2">
                     <span className="btn btn-outline-dark mx-2" onClick={() => {decrement(id)}}>-</span>
                     {count}
                     <span className="btn btn-outline-dark mx-2" onClick={() => {increment(id)}}>+</span>
                 </div>
-                <div className="col-10 col-lg-2 mx-auto">
+                <div className="col-10 col-lg-2 mx-auto mt-2">
                     <span className="btn btn-outline-danger" onClick={() => {removeItem(id)}}>удалить</span>
                 </div>
-                <div className="col-10 col-lg-2 mx-auto">
-                    <span className="d-lg-none">итог: </span>
+                <div className="col-10 col-lg-2 mx-auto mt-2">
+                    <span className="d-lg-none">Итог: </span>
                     {total}
+                    <span className="d-lg-none"> ₽</span>
                 </div>
             </div>  
         </>

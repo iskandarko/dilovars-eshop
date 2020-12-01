@@ -28,12 +28,12 @@ class Product extends Component {
                                     this.props.addToCart(id);
                                 }}
                             >
-                                {inCart ? "В корзине" : "Добавить"}
+                                {inCart ? <i class="fas fa-shopping-cart fa-lg"></i> : <i class="fas fa-cart-plus fa-lg"></i>}
                             </Button>
                         </div>
                         <Card.Footer className="d-flex justify-content-between">
                             <p className="align-self-center mb-0">{title}</p>
-                            <h5 className="mb-0">{price}руб</h5>
+                            <h5 className="mb-0">{price} ₽</h5>
                         </Card.Footer>
                     </Card.Body>
                 </Card>

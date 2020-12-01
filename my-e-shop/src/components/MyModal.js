@@ -17,27 +17,27 @@ function MyModal() {
                         show={modalOpen}
                         onHide={closeModal}
                       >
-                        <Modal.Header closeButton>
-                          <Modal.Title>Добавлено в корзину</Modal.Title>
+                        <Modal.Header className="text-uppercase text-center d-block">
+                          <h5>добавлено в корзину</h5> 
                         </Modal.Header>
                         <Modal.Body>
                           <Container className="text-center">
                             <Image src={img} fluid />
                             <div className="text-center">
                               <h4>{title}</h4>
-                              <h5>{price} руб</h5>
+                              <h5>{price} ₽</h5>
                             </div>
                           </Container>
                         </Modal.Body>
                         <Modal.Footer className="d-flex justify-content-center">
                           <Link to="/products">
-                            <Button className="mx-2" variant="secondary" onClick={() => {closeModal()}}>
-                              К товарам
+                            <Button className="mx-2 modal_button" variant="secondary" onClick={() => {closeModal()}}>
+                              Продолжить покупки
                             </Button>
                           </Link>
                           <Link to="/cart">
-                            <Button className="mx-2" variant="primary" onClick={() => {closeModal()}}>
-                              В корзину
+                            <Button className="mx-2 modal_button" variant="primary" onClick={() => {closeModal()}}>
+                              Оформить заказ
                             </Button>
                           </Link>
                         </Modal.Footer>

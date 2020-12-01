@@ -44,7 +44,7 @@ class Details extends Component {
                                     <Col className="my-3 mx-auto" xs="9" md="6">
                                         <h2>{title}</h2>
                                         <p><strong>Производитель:</strong> {company}</p>
-                                        <p><strong>Цена:</strong> ${price}</p>
+                                        <p><strong>Цена:</strong> {price} ₽</p>
                                         <p><strong>Информация о продукте:</strong> <br/> {info}</p>
                                         <Link to="/products">
                                             <Button className="mx-2" variant="primary">Назад</Button>
@@ -57,7 +57,7 @@ class Details extends Component {
                                                 value.openModal(id);
                                                 value.addToCart(id);
                                                 }}>
-                                            {inCart ? "В корзине" : "Добавить"}
+                                            {inCart ? "В корзине" : "Купить"}
                                         </Button>
                                     </Col>
                                 </Row>

@@ -15,3 +15,7 @@ code {
 .modal-dialog {
   width: 20rem !important;
 }
+
+.modal_button {
+  width: 12rem !important;
+}

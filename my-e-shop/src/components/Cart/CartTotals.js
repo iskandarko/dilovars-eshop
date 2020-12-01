@@ -17,8 +17,8 @@ const CartTotals = (props) => {
                             </button>
                         </Link>
                         <h5>
-                            <span className="text-title">Итого : </span>
-                            <strong>{cartTotal} руб</strong>
+                            <span className="text-title">Сумма: </span>
+                            <strong>{cartTotal} ₽</strong>
                         </h5>
                     </div>
                 </div>
