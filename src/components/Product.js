@@ -15,27 +15,25 @@ class Product extends Component {
                             variant="top" 
                             src={img} 
                             alt="изображение_лота"
-                            className="p-5"
+                            // className="p-5"
                         />
                     </Link>
-                    <Card.Body className="p-0">
-                        <div className="d-flex justify-content-end">
-                            <Button 
-                                variant="success" 
-                                disabled={inCart} 
-                                onClick={() => {
-                                    this.props.openModal(id);
-                                    this.props.addToCart(id);
-                                }}
-                            >
-                                {inCart ? <i class="fas fa-shopping-cart fa-lg"></i> : <i class="fas fa-cart-plus fa-lg"></i>}
-                            </Button>
-                        </div>
-                        <Card.Footer className="d-flex justify-content-between">
-                            <p className="align-self-center mb-0">{title}</p>
-                            <h5 className="mb-0">{price} ₽</h5>
-                        </Card.Footer>
-                    </Card.Body>
+                    <div className="d-flex justify-content-end">
+                        <Button 
+                            variant="success" 
+                            disabled={inCart} 
+                            onClick={() => {
+                                this.props.openModal(id);
+                                this.props.addToCart(id);
+                            }}
+                        >
+                            {inCart ? <i class="fas fa-shopping-cart fa-lg"></i> : <i class="fas fa-cart-plus fa-lg"></i>}
+                        </Button>
+                    </div>
+                    <Card.Footer className="d-flex justify-content-between">
+                        <p className="align-self-center mb-0">{title}</p>
+                        <p className="mb-0"><strong>{price} ₽</strong></p>
+                    </Card.Footer>
                 </Card>
             </Col>
          );
