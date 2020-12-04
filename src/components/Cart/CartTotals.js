@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const CartTotals = (props) => {
-    const {clearCart, cartTotal} = props.values;
+    const { clearCart, cartTotal } = props.values;
     return ( 
         <>
             <div className="container">
@@ -13,7 +13,12 @@ const CartTotals = (props) => {
                             <strong>{cartTotal} ₽</strong>
                         </h5>
                         <div className="totals_button_container">
-                            <Link to="/cart/order" className="d-block">
+                            <Link 
+                                to={{
+                                    pathname: "/cart/order",
+                                    state: {} ////////////////////////////
+                                    }}
+                                className="d-block">
                                 <button 
                                     className="btn btn-outline-success text-uppercase mt-2"
                                 >

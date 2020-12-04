@@ -42,3 +42,8 @@ code {
 .totals_button_container button{
   width: 14rem;
 }
+
+td {
+  /* border: solid; */
+  padding: 1rem;
+}

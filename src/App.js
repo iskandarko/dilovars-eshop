@@ -9,6 +9,7 @@ import Cart from './components/Cart/Cart';
 import MyModal from './components/MyModal';
 import Default from './components/Default';
 import LandingPage from './components/LandingPage';
+import CartOrder from './components/Cart/CartOrder'
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/products' component={ProductList} />
         <Route path='/products/:id' component={Details} />
-        <Route path='/cart' component={Cart} />
+        <Route exact path='/cart' component={Cart} />
+        <Route path="/cart/order" component={CartOrder} />
         <Route component={Default} />
       </Switch>
       <MyModal />

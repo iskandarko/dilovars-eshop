@@ -30,7 +30,6 @@ class Cart extends Component {
                                 </>
                             );
                         }
-
                 }}
             </ProductConsumer>
 

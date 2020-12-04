@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Default(props) {
-    console.log(props)
     return (
         <div className="text-center pt-5">
             <h1>Ошибка 404</h1>
