@@ -24,7 +24,7 @@ function MyModal() {
                           <Container className="text-center">
                             <Image src={img} fluid />
                             <div className="text-center">
-                              <h4>{title}</h4>
+                              <p>{title}</p>
                               <h5>{price} ₽</h5>
                             </div>
                           </Container>

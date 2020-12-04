@@ -9,16 +9,16 @@ class MyNavbar extends Component {
         return ( 
             <header>
                 <Navbar bg="dark" variant="dark" expand="sm">
-                    <Navbar.Brand href="/products">D-Shop</Navbar.Brand>
+                    <Navbar.Brand href="/products">Models <i class="fas fa-paper-plane"></i> Shop</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Link to="/products">
+                            <Link class="nav-link" to="/products">
                                 Все товары
                             </Link>
                         </Nav>
                         <Nav className="ml-auto">
-                            <Link to="/cart">
+                            <Link class="nav-link" to="/cart">
                                 Корзина
                             </Link>
                         </Nav>

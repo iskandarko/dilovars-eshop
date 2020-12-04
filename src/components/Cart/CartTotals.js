@@ -8,18 +8,27 @@ const CartTotals = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col-10 col-sm-8 mt-2 ml-sm-5 ml-md-auto text-capitalize text-right">
-                        <Link to="/products">
-                            <button 
-                                className="btn btn-outline-danger text-uppercase mb-3 px-5"
-                                onClick={() => {clearCart()}}
-                            >
-                                очистить корзину
-                            </button>
-                        </Link>
                         <h5>
                             <span className="text-title">Сумма: </span>
                             <strong>{cartTotal} ₽</strong>
                         </h5>
+                        <div className="totals_button_container">
+                            <Link to="/cart/order" className="d-block">
+                                <button 
+                                    className="btn btn-outline-success text-uppercase mt-2"
+                                >
+                                    оформить заказ
+                                </button>
+                            </Link>
+                            <Link to="/products" className="d-block">
+                                <button 
+                                    className="btn btn-outline-danger text-uppercase mt-2"
+                                    onClick={() => {clearCart()}}
+                                >
+                                    очистить корзину
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
