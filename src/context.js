@@ -10,7 +10,9 @@ class ProductProvider extends Component {
         modalProduct: detailProduct,
         modalOpen: false,
         cart: [],
-        cartTotal: 0
+        cartTotal: 0,
+        order: [],
+        orderTotal: 0
     }
 
     componentDidMount() {
@@ -64,7 +66,6 @@ class ProductProvider extends Component {
     }
 
     addToCart = id => {
-        console.log('Hello from addToCart!');
         let tempProducts = [...this.state.products];
         const index = tempProducts.indexOf(this.getItem(id));
         const product = tempProducts[index];
@@ -86,7 +87,6 @@ class ProductProvider extends Component {
     }
 
     removeItem = id => {
-        console.log("Hi from removeItem!");
         this.setState((prevState) => {
             const index = prevState.products.indexOf(this.getItem(id));
             const tempCart = prevState.cart.filter(item => item.id !== id);
@@ -99,8 +99,40 @@ class ProductProvider extends Component {
                     cart: tempCart,
                     products: prevState.products
                 }
-            )
+            );
         }, () => {this.updateTotals()});
+    }
+
+    clearCart = () => {
+        this.setState(() => {
+            return({
+                cart: []
+            });
+        }, () => {
+            this.setProducts();
+            this.updateTotals();
+        });
+    }
+
+    clearOrder = () => {
+        this.setState(() => {
+            return({
+                order: [],
+                orderTotal: 0
+            });
+        });
+    }
+
+    handleOrder = () => {
+        console.log('Hi from HandleOrder!');
+        this.setState((prevState) => {
+            return(
+                {
+                    order: prevState.cart,
+                    orderTotal: prevState.cartTotal
+                }
+            );
+        }, () => {this.clearCart()});
     }
 
     increment = id => {
@@ -133,19 +165,6 @@ class ProductProvider extends Component {
         }, () => {this.updateTotals()});
     }
 
-
-
-    clearCart = id => {
-        this.setState(() => {
-            return({
-                cart: []
-            });
-        }, () => {
-            this.setProducts();
-            this.updateTotals();
-        });
-    }
-
     openModal = id => {
         console.log('hello from openModal');
         const product = this.getItem(id);
@@ -175,7 +194,9 @@ class ProductProvider extends Component {
                     increment: this.increment,
                     decrement: this.decrement,
                     removeItem: this.removeItem,
-                    clearCart: this.clearCart
+                    clearCart: this.clearCart,
+                    handleOrder: this.handleOrder,
+                    clearOrder: this.clearOrder
                 }}
             >
                 {this.props.children}
