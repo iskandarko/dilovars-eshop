@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../Title';
-import { ProductConsumer, ProductProvider } from '../../context';
+import { ProductConsumer } from '../../context';
 
 const OrderDone = () => {
     return ( 

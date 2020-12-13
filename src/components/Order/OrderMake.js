@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react';
+import React from 'react';
 import Title from '../Title';
 import { ProductContext } from '../../context';
 
@@ -6,9 +6,15 @@ class OrderMake extends React.Component {
     constructor(props) {
       super(props);
       this.submitForm = this.submitForm.bind(this);
+      this.orderDetailsInString = this.orderDetailsInString.bind(this);
       this.state = {
-        status: ""
+        status: "",
+        detailsText: "test"
       };
+    }
+
+    componentDidMount() {
+        this.orderDetailsInString();
     }
 
     submitForm(ev) {
@@ -31,33 +37,31 @@ class OrderMake extends React.Component {
         console.log(data);
         xhr.send(data);
     }
-  
+
+    orderDetailsInString() {
+        let text = "";
+        this.context.cart.forEach(product => {
+             let tempText = product.title + " // " + product.price + " ₽ // " + product.count + " шт\n\n";
+             text += tempText;
+        });
+        text += "Сумма: " + this.context.cartTotal + "₽";
+        this.setState({ detailsText: text });
+    }
+
     render() {
-        console.log(process.env.REACT_APP_FORMIO_URL);
         return(
             <>
                 <div className="container">
                     <Title title="Оформление заказа" />         
-                    {/* <ul>
-                        {this.context.cart.map((product) => {
-                                return (
-                                <li key={product.id}>
-                                    <span>{product.title}</span> // <span>{product.price} ₽ x {product.count}</span>
-                                </li> 
-                                );
-                            })}
-                        <li>Сумма: {this.context.cartTotal} ₽</li>
-                    </ul>     */}
                     <form 
                         onSubmit={this.submitForm}
                         action={process.env.REACT_APP_FORMIO_URL}
                         method="POST" 
                         className="form_order"
                     >
-                        <div class="form-group">
-                            <label htmlFor="inputOrder">Вы заказываете</label>
-                            <textarea name="Order" class="form-control" id="inputOrder" rows="4" disabled>
-                                Здесь будет заказ
+                        <div className="form-group">
+                            <label htmlFor="inputOrder">Детали заказа</label>
+                            <textarea name="Order" className="form-control" id="inputOrder" rows="4" value={this.state.detailsText} readOnly="readOnly">
                             </textarea>
                         </div>
                         <div className="form-group">
@@ -72,10 +76,10 @@ class OrderMake extends React.Component {
                             <label htmlFor="inputPhone">Телефон</label>
                             <input name="Phone" type="text" className="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Введите телефон для связи с вами" />
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label htmlFor="inputAddress">Адрес</label>
-                            <textarea name="Address" class="form-control" id="inputAddress" rows="2" placeholder="Введите ваш адрес"></textarea>
-                        </div>
+                            <textarea name="Address" className="form-control" id="inputAddress" rows="2" placeholder="Введите ваш адрес"></textarea>
+                        </div> 
                         <button 
                             type="submit"
                             className="btn d-block btn-outline-success text-uppercase mt-4 mx-auto" 
@@ -89,51 +93,6 @@ class OrderMake extends React.Component {
     }
   }
 
-// const OrderMake = () => {
-//     return ( 
-//         <>
-//             <ProductConsumer>
-//                 {values => {
-//                     return (
-//                         <>
-//                             <div className="container">
-//                                 <Title title="Оформление заказа" />
-//                                 <form 
-//                                     action="https://formspree.io/f/mvovwwnd" 
-//                                     method="post" 
-//                                     className="form_order"
-//                                 >
-//                                     <div className="form-group">
-//                                         <label htmlFor="inputName">Имя</label>
-//                                         <input name="Name" type="text" className="form-control" id="inputName" aria-describedby="emailHelp" placeholder="Введите ваше имя" />
-//                                     </div>
-//                                     <div className="form-group">
-//                                         <label htmlFor="inputEmail">Ваш email</label>
-//                                         <input name="Email" type="email" className="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email для связи с вами" />
-//                                     </div>
-//                                     <div className="form-group">
-//                                         <label htmlFor="inputPhone">Телефон</label>
-//                                         <input name="Phone" type="text" className="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Введите телефон для связи с вами" />
-//                                     </div>
-//                                     <div class="form-group">
-//                                         <label htmlFor="inputAddress">Адрес</label>
-//                                         <textarea name="Address" class="form-control" id="inputAddress" rows="2" placeholder="Введите ваш адрес"></textarea>
-//                                     </div>
-//                                     <button 
-//                                         type="submit"
-//                                         className="btn d-block btn-outline-success text-uppercase mt-4 mx-auto" 
-//                                         onClick={() => values.handleOrder()}>
-//                                             Оформить заказ
-//                                     </button>
-//                                 </form>
-//                             </div>
-//                         </>
-//                     );
-//                 }}
-//             </ProductConsumer>
-//         </>
-//      );
-// }
  
 OrderMake.contextType = ProductContext;
 
