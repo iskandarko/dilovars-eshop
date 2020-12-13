@@ -16,6 +16,7 @@ function MyModal() {
                       <Modal
                         show={modalOpen}
                         onHide={closeModal}
+                        centered
                       >
                         <Modal.Header className="text-uppercase text-center d-block">
                           <h5>добавлено в корзину</h5> 
