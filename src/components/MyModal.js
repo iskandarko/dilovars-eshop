@@ -23,7 +23,16 @@ function MyModal() {
                         </Modal.Header>
                         <Modal.Body>
                           <Container className="text-center">
-                            <Image src={img} fluid />
+                          <div data-href={img} className="img-fluid progressive replace">
+                              <img  
+                                width="200"
+                                height="200"
+                                loading="lazy"
+                                className="img-fluid preview"
+                                src="../img/tiny.webp" 
+                                alt="изображение_лота" 
+                              />
+                            </div>
                             <div className="text-center">
                               <p>{title}</p>
                               <h5>{price} ₽</h5>

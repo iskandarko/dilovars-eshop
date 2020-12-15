@@ -55,6 +55,12 @@ td {
   margin: 0 auto;
 }
 
+/* .lazy_loaded {
+  min-width: 400px;
+  min-height: 300px;
+  background-color: grey; 
+} */
+
 /* .modal-content {
   margin: auto !important;
 } */

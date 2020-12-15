@@ -12,13 +12,16 @@ class Product extends Component {
                 <Card  onClick={() => {handleDetails(id)}}>
                     <div className="card_container">
                         <Link to={"/products/" + id}>
-                                <Card.Img 
-                                    
-                                    variant="top" 
-                                    src={img} 
-                                    alt="изображение_лота"
-                                    // className="p-5"
-                                />   
+                            <div data-href={img} className="card-img-top progressive replace">
+                                <img 
+                                    width="200"
+                                    height="200"
+                                    loading="lazy"
+                                    className="card-img-top preview"
+                                    src="../img/tiny.webp" 
+                                    alt="изображение_лота" 
+                                />
+                            </div>
                         </Link>
                         <Button 
                             variant="success" 
