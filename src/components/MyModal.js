@@ -23,13 +23,10 @@ function MyModal() {
                         </Modal.Header>
                         <Modal.Body>
                           <Container className="text-center">
-                          <div data-href={img} className="img-fluid progressive replace">
+                          <div className="modal_pic_wrapper">
                               <img  
-                                width="200"
-                                height="200"
-                                loading="lazy"
-                                className="img-fluid preview"
-                                src="../img/tiny.webp" 
+                                className="img-fluid"
+                                src={img} 
                                 alt="изображение_лота" 
                               />
                             </div>
@@ -47,7 +44,7 @@ function MyModal() {
                           </Link>
                           <Link to="/cart">
                             <Button className="mx-2 modal_button" variant="primary" onClick={() => {closeModal()}}>
-                              Оформить заказ
+                              Перейти в <i className="fas fa-shopping-basket fa-lg"></i>
                             </Button>
                           </Link>
                         </Modal.Footer>

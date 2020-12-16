@@ -9,7 +9,7 @@ class ProductList extends Component {
         return ( 
             <>
                 <Title name="Все" title="товары" />
-                <div className="py-3">
+                <div className="mb-5">
                     <Container> 
                         <Row>
                             <ProductConsumer>

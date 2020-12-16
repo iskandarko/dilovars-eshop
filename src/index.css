@@ -55,6 +55,32 @@ td {
   margin: 0 auto;
 }
 
+.modal_pic_wrapper {
+  width: 100%;
+  height: 192px;
+  background-color: grey;
+}
+
+.cart_wrapper {
+  display:inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  /* background-color: blue; */
+}
+.cart_wrapper div {
+  position: absolute;
+  background-color: teal;
+  width: 20px;
+  text-align: center;
+  border-radius: 50%;
+  right: -6px;
+  bottom: 0;
+}
+
+
+
+
 /* .lazy_loaded {
   min-width: 400px;
   min-height: 300px;

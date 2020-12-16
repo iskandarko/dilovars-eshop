@@ -16,16 +16,11 @@ class Details extends Component {
                             <Container className="my-5">
                                 <Row>
                                     <Col className="my-3 mx-auto" xs="9" md="6">
-                                    <div data-href={img} className="img-fluid progressive replace">
                                         <img 
-                                            width="200"
-                                            height="200"
-                                            loading="lazy"
-                                            src={img} 
-                                            alt="../img/tiny.webp" 
-                                            className="img-fluid preview" 
+                                            src={img}
+                                            alt="изображение_лота" 
+                                            className="img-fluid" 
                                         />
-                                    </div>
                                     </Col>
                                     <Col className="my-3 mx-auto" xs="9" md="6">
                                         <h2>{title}</h2>
