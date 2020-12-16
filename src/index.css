@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding-top: 3rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -13,7 +14,9 @@ code {
 }
 
 .modal-dialog {
-  width: 20rem !important;
+  max-width: 20rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .modal_button {
@@ -66,7 +69,7 @@ td {
   position: relative;
   width: 40px;
   height: 40px;
-  /* background-color: blue; */
+  color: white;
 }
 .cart_wrapper div {
   position: absolute;

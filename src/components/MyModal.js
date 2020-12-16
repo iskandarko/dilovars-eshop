@@ -14,6 +14,7 @@ function MyModal() {
                   return (
                     <>
                       <Modal
+                        size="sm"
                         show={modalOpen}
                         onHide={closeModal}
                         centered
@@ -23,12 +24,13 @@ function MyModal() {
                         </Modal.Header>
                         <Modal.Body>
                           <Container className="text-center">
-                          <div className="modal_pic_wrapper">
-                              <img  
-                                className="img-fluid"
-                                src={img} 
-                                alt="изображение_лота" 
-                              />
+                            <div className="modal_pic_wrapper">
+                                <img 
+                                    loading="lazy"
+                                    className="card-img-top"
+                                    src={img} 
+                                    alt="изображение_лота" 
+                                />
                             </div>
                             <div className="text-center">
                               <p>{title}</p>
@@ -38,7 +40,7 @@ function MyModal() {
                         </Modal.Body>
                         <Modal.Footer className="d-flex justify-content-center">
                           <Link to="/products">
-                            <Button className="mx-2 modal_button" variant="secondary" onClick={() => {closeModal()}}>
+                            <Button className="mx-2 modal_button" variant="success" onClick={() => {closeModal()}}>
                               Продолжить покупки
                             </Button>
                           </Link>

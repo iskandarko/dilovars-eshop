@@ -8,15 +8,10 @@ class MyNavbar extends Component {
     render() { 
         return ( 
             <header>
-                <Navbar bg="dark" variant="dark" className="py-0">
+                <Navbar fixed="top" bg="dark" variant="dark" className="py-0">
                     <Link className="nav-link" to="/products">
                         <Navbar.Brand >Models <i className="fas fa-paper-plane"></i> Shop</Navbar.Brand>
                     </Link>    
-                        {/* <Nav className="mr-auto">
-                            <Link className="nav-link" to="/products">
-                                <i class="fas fa-home fa-2x"></i>
-                            </Link>
-                        </Nav> */}
                         <Nav className="ml-auto">
                             <Link className="nav-link" to="/cart">
                                 <div className="cart_wrapper">
