@@ -9,7 +9,7 @@ class OrderMake extends React.Component {
       this.orderDetailsInString = this.orderDetailsInString.bind(this);
       this.state = {
         status: "",
-        detailsText: "test"
+        detailsText: "default"
       };
     }
 
@@ -18,24 +18,54 @@ class OrderMake extends React.Component {
     }
 
     submitForm(ev) {
+
         ev.preventDefault();
         const form = ev.target;
         const data = new FormData(form);
-        const xhr = new XMLHttpRequest();
-        xhr.open(form.method, form.action);
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.onreadystatechange = () => {
-          if (xhr.readyState !== XMLHttpRequest.DONE) return;
-          if (xhr.status === 200) {
-            form.reset();
-            this.setState({ status: "SUCCESS" });
-            this.context.handleOrder();
-          } else {
-            this.setState({ status: "ERROR" });
-          }
+
+        const formDataToJson = formData => {
+            const entries = formData.entries();
+        
+            const dataObj = Array.from(entries).reduce( (data, [key, value]) => {
+                data[key] = value;
+                if (key === 'email') {
+                data._replyTo = value;
+                }
+                return data;
+            }, {});
+            return JSON.stringify(dataObj);
         };
-        console.log(data);
-        xhr.send(data);
+
+            
+         fetch(form.action, {
+              method: form.method, 
+              mode: 'cors', 
+              cache: 'no-cache', 
+              credentials: 'same-origin', 
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow', 
+              referrerPolicy: 'no-referrer', 
+              body: formDataToJson(data) 
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response is not OK');
+                }
+                return response.blob();
+            })
+            .then( resp => {
+                console.log(resp);
+                form.reset();
+                this.setState({ status: "SUCCESS" });
+                this.context.handleOrder();
+            })
+            .catch(error => {
+                alert('Произошла ошибка! Пожалуйста, проверьте подключение к интернету и повторите операцию. Если ошибка повторилась, позвоните по номеру телефона на главной странице.');
+                console.error('There has been a problem with the fetch operation: ', error);
+                this.setState({ status: "ERROR" });
+            });
     }
 
     orderDetailsInString() {
@@ -61,24 +91,57 @@ class OrderMake extends React.Component {
                     >
                         <div className="form-group">
                             <label htmlFor="inputOrder">Детали заказа</label>
-                            <textarea name="Order" className="form-control" id="inputOrder" rows="4" value={this.state.detailsText} readOnly="readOnly">
+                            <textarea 
+                                name="Order" 
+                                className="form-control" 
+                                id="inputOrder" 
+                                rows="4" 
+                                value={this.state.detailsText} 
+                                readOnly="readOnly">
                             </textarea>
                         </div>
                         <div className="form-group">
                             <label htmlFor="inputName">Имя</label>
-                            <input name="Name" type="text" className="form-control" id="inputName" aria-describedby="emailHelp" placeholder="Введите ваше имя" />
+                            <input 
+                                name="Name" 
+                                type="text" 
+                                className="form-control" 
+                                id="inputName" 
+                                aria-describedby="emailHelp" 
+                                placeholder="Введите ваше имя" 
+                            />
                         </div>
                         <div className="form-group">
                             <label htmlFor="inputEmail">Ваш email</label>
-                            <input name="Email" type="email" className="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Введите email для связи с вами" />
+                            <input 
+                                name="Email" 
+                                type="email" 
+                                className="form-control" 
+                                id="inputEmail" 
+                                aria-describedby="emailHelp" 
+                                placeholder="Введите email для связи с вами" 
+                            />
                         </div>
                         <div className="form-group">
                             <label htmlFor="inputPhone">Телефон</label>
-                            <input name="Phone" type="text" className="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Введите телефон для связи с вами" />
+                            <input 
+                                name="Phone" 
+                                type="text" 
+                                className="form-control" 
+                                id="inputPhone" 
+                                aria-describedby="emailHelp" 
+                                placeholder="Введите телефон для связи с вами" 
+                            />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputAddress">Адрес</label>
-                            <textarea name="Address" className="form-control" id="inputAddress" rows="2" placeholder="Введите ваш адрес"></textarea>
+                            <label htmlFor="inputAddress">Примечания</label>
+                            <textarea 
+                                name="Notes" 
+                                className="form-control" 
+                                id="inputAddress" 
+                                rows="2" 
+                                placeholder="Например, укажите удобное время для звонка">
+                            </textarea>
                         </div> 
                         <button 
                             type="submit"

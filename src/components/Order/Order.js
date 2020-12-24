@@ -1,8 +1,9 @@
 import React from 'react';
 import OrderMake from './OrderMake';
 import OrderDone from './OrderDone';
+import OrderError from './OrderError';
 import { ProductConsumer } from '../../context';
-import { Link } from 'react-router-dom';
+
 
 const Order = () => {
     return ( 
@@ -23,7 +24,7 @@ const Order = () => {
                     } else {
                         console.log (cart.length, order.length);
                         return ( 
-                            <p>Произошла ошибка, пожалуйста, вернитесь <Link to="/products">на главную страницу</Link>, чтобы оформить заказ</p>
+                            <OrderError />
                         );
                     }
                 }}

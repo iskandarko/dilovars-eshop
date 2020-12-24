@@ -1,9 +1,10 @@
 import React from 'react';
+import Title from '../Title';
 
 const CartEmpty = () => {
     return ( 
         <>
-            <h4>Ваша корзина пуста</h4>
+            <Title title="Ваша корзина пуста" />
         </>
      );
 }
