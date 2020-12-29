@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductConsumer } from '../context';
 import { Link } from 'react-router-dom';
-import { Modal, Button, Container, Image} from 'react-bootstrap';
+import { Modal, Button, Container} from 'react-bootstrap';
 
 
 function MyModal() {

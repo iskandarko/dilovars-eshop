@@ -81,7 +81,9 @@ td {
   bottom: 0;
 }
 
-
+.hidden {
+  display: none;
+}
 
 
 /* .lazy_loaded {

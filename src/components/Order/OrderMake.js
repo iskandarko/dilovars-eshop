@@ -5,37 +5,21 @@ import { ProductContext } from '../../context';
 class OrderMake extends React.Component {
     constructor(props) {
       super(props);
-      this.submitForm = this.submitForm.bind(this);
-      this.orderDetailsInString = this.orderDetailsInString.bind(this);
       this.state = {
         status: "",
-        detailsText: "default"
-      };
+        detailsText: "Произошла ошибка. Пожалуйста, очистите корзину и оформите заказ заново.",
+        requiredInputsIds: ["inputEmail", "inputPhone"]
+      }
     }
 
     componentDidMount() {
         this.orderDetailsInString();
     }
 
-    submitForm(ev) {
-
+    handleSubmit = ev => {
         ev.preventDefault();
         const form = ev.target;
         const data = new FormData(form);
-
-        const formDataToJson = formData => {
-            const entries = formData.entries();
-        
-            const dataObj = Array.from(entries).reduce( (data, [key, value]) => {
-                data[key] = value;
-                if (key === 'email') {
-                data._replyTo = value;
-                }
-                return data;
-            }, {});
-            return JSON.stringify(dataObj);
-        };
-
             
          fetch(form.action, {
               method: form.method, 
@@ -47,7 +31,7 @@ class OrderMake extends React.Component {
               },
               redirect: 'follow', 
               referrerPolicy: 'no-referrer', 
-              body: formDataToJson(data) 
+              body: this.formDataToJson(data) 
             })
             .then(response => {
                 if (!response.ok) {
@@ -62,13 +46,34 @@ class OrderMake extends React.Component {
                 this.context.handleOrder();
             })
             .catch(error => {
-                alert('Произошла ошибка! Пожалуйста, проверьте подключение к интернету и повторите операцию. Если ошибка повторилась, позвоните по номеру телефона на главной странице.');
+                alert('Произошла ошибка! Пожалуйста, проверьте подключение к интернету и повторите операцию. Если ошибка повторяется, позвоните по номеру телефона на главной странице.');
                 console.error('There has been a problem with the fetch operation: ', error);
                 this.setState({ status: "ERROR" });
             });
     }
 
-    orderDetailsInString() {
+    handleChange = (ev) => {
+        const {id, value} = ev.target;
+        const anotherId = this.getAnotherRequriedInputId(id);
+
+        const inputElement_this = document.getElementById(id);
+        const inputElement_another = document.getElementById(anotherId);
+        const contactsAlert = document.getElementById("contactsAlert");
+
+        if (value) {
+            inputElement_another.required = false;
+        } else {
+            inputElement_another.required = true;
+        }
+
+        if (inputElement_this.validity.valid) {
+            contactsAlert.classList.add("hidden");
+        } else {
+            contactsAlert.classList.remove("hidden");
+        }
+    }
+
+    orderDetailsInString = () => {
         let text = "";
         this.context.cart.forEach(product => {
              let tempText = product.title + " // " + product.price + " ₽ // " + product.count + " шт\n\n";
@@ -78,13 +83,30 @@ class OrderMake extends React.Component {
         this.setState({ detailsText: text });
     }
 
+    formDataToJson = formData  => {
+        const entries = formData.entries();
+        const dataObj = Array.from(entries).reduce( (data, [key, value]) => {
+            data[key] = value;
+            if (key === 'email') {
+            data._replyTo = value;
+            }
+            return data;
+        }, {});
+        return JSON.stringify(dataObj);
+    };
+
+    getAnotherRequriedInputId = id => {
+        const inputsIds = this.state.requiredInputsIds;
+        return (id === inputsIds[0]) ? inputsIds[1] : inputsIds[0];
+    }
+
     render() {
         return(
             <>
                 <div className="container">
                     <Title title="Оформление заказа" />         
                     <form 
-                        onSubmit={this.submitForm}
+                        onSubmit={this.handleSubmit}
                         action={process.env.REACT_APP_FORMIO_URL}
                         method="POST" 
                         className="form_order"
@@ -108,30 +130,39 @@ class OrderMake extends React.Component {
                                 className="form-control" 
                                 id="inputName" 
                                 aria-describedby="emailHelp" 
-                                placeholder="Введите ваше имя" 
+                                placeholder="Укажите ваше имя" 
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputEmail">Ваш email</label>
+                            <label htmlFor="inputEmail">Email</label>
                             <input 
                                 name="Email" 
                                 type="email" 
                                 className="form-control" 
                                 id="inputEmail" 
-                                aria-describedby="emailHelp" 
-                                placeholder="Введите email для связи с вами" 
-                            />
+                                aria-describedby="emailHelp"
+                                placeholder="Укажите email для связи с вами"
+                                onChange={this.handleChange}
+                                required
+                            /> 
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputPhone">Телефон</label>
+                            <label htmlFor="inputPhone">Телефон (моб.)</label>
                             <input 
                                 name="Phone" 
                                 type="text" 
                                 className="form-control" 
                                 id="inputPhone" 
                                 aria-describedby="emailHelp" 
-                                placeholder="Введите телефон для связи с вами" 
+                                placeholder="Укажите телефон для связи с вами" 
+                                onChange={this.handleChange}
+                                required pattern = "^([-\s\(\)]*)(8|\+?7)?([-\s\(\)]*)([0-7]|9)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)$"
+                                onInvalid={ev => {ev.target.setCustomValidity('Пожалуйста, укажите корректный номер телефона. Допускается любой формат ввода, кроме ввода добавочного номера. Его вы можете указать в примечаниях.')}}
+                                onInput={ev => {ev.target.setCustomValidity('')}}
                             />
+                        </div>
+                        <div id="contactsAlert" class="alert alert-warning" role="alert">
+                            Необходимо указать хотя бы один способ для связи с вами
                         </div>
                         <div className="form-group">
                             <label htmlFor="inputAddress">Примечания</label>
@@ -140,7 +171,7 @@ class OrderMake extends React.Component {
                                 className="form-control" 
                                 id="inputAddress" 
                                 rows="2" 
-                                placeholder="Например, укажите удобное время для звонка">
+                                placeholder="Например, укажите удобное время для звонка или добавочный номер.">
                             </textarea>
                         </div> 
                         <button 
@@ -149,7 +180,7 @@ class OrderMake extends React.Component {
                             >
                                 Оформить заказ
                         </button>
-                    </form>
+                    </form>                   
                 </div>
             </>
         );
