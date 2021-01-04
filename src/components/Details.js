@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Container, Row, Button} from 'react-bootstrap';
 import { ProductConsumer } from '../context';
 import { Link } from 'react-router-dom';
-// import { storeProducts } from '../data';
 
 class Details extends Component {
 
@@ -13,36 +11,34 @@ class Details extends Component {
                     {value => {
                         const {id, title, img, price, company, info, inCart } = value.detailsProduct;
                         return (
-                            <Container className="my-5">
-                                <Row>
-                                    <Col className="my-3 mx-auto" xs="9" md="6">
+                            <div className="my-5 container">
+                                <div className="row">
+                                    <div className="col col-9 col-md-6 my-3 mx-auto">
                                         <img 
                                             src={img}
                                             alt="изображение_лота" 
                                             className="img-fluid" 
                                         />
-                                    </Col>
-                                    <Col className="my-3 mx-auto" xs="9" md="6">
+                                    </div>
+                                    <div className="col col-9 col-md-6 my-3 mx-auto">
                                         <h2>{title}</h2>
                                         <p><strong>Производитель:</strong> {company}</p>
                                         <p><strong>Цена:</strong> {price} ₽</p>
                                         <p><strong>Информация о продукте:</strong> <br/> {info}</p>
                                         <Link to="/products">
-                                            <Button className="mx-2" variant="primary">Назад</Button>
+                                            <button className="btn btn-primary mx-2">Назад</button>
                                         </Link>
-                                        <Button 
-                                            className="mx-2" 
-                                            variant="success" 
+                                        <button className="btn btn-success mx-2"
                                             disabled={inCart}
                                             onClick={() => {
                                                 value.openModal(id);
                                                 value.addToCart(id);
                                                 }}>
                                             {inCart ? "В корзине" : "Купить"}
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </Container>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         )
                     }}
             </ProductConsumer>

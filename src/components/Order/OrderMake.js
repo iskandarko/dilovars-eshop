@@ -141,7 +141,7 @@ class OrderMake extends React.Component {
                                 className="form-control" 
                                 id="inputEmail" 
                                 aria-describedby="emailHelp"
-                                placeholder="Укажите email для связи с вами"
+                                placeholder="Укажите email"
                                 onChange={this.handleChange}
                                 required
                             /> 
@@ -154,7 +154,7 @@ class OrderMake extends React.Component {
                                 className="form-control" 
                                 id="inputPhone" 
                                 aria-describedby="emailHelp" 
-                                placeholder="Укажите телефон для связи с вами" 
+                                placeholder="Укажите телефон" 
                                 onChange={this.handleChange}
                                 required pattern = "^([-\s\(\)]*)(8|\+?7)?([-\s\(\)]*)([0-7]|9)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)(\d)([-\s\(\)]*)$"
                                 onInvalid={ev => {ev.target.setCustomValidity('Пожалуйста, укажите корректный номер телефона. Допускается любой формат ввода, кроме ввода добавочного номера. Его вы можете указать в примечаниях.')}}
