@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ProductProvider } from './context';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './App';
+import App from './app/app';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

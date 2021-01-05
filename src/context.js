@@ -21,6 +21,10 @@ class ProductProvider extends Component {
     
     //method to avoid passing of refferences to storeProducts items but instead passing the values to the state
     setProducts() { 
+        fetch('/db-request')
+        .then((response) => response.json())
+        .then(data => console.log(data));
+        
         let tempProducts = [];
         storeProducts.forEach(item => {
             const singleItem = {...item};
@@ -32,12 +36,6 @@ class ProductProvider extends Component {
     }
 
     getItem = id => {
-        // const product;
-        // this.state.products.forEach( item => {
-        //     if (item.id === id) {
-        //         product = {...item};
-        //     }
-        // });
         const product = this.state.products.find(item => item.id === id);
         return product;
     }
