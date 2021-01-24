@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import MyNavbar from '../components/MyNavbar';
+import MyFooter from '../components/MyFooter';
 import ProductList from '../components/ProductList';
 import Details from '../components/Details';
 import Cart from '../components/Cart/Cart';
@@ -22,6 +23,7 @@ function App() {
         <Route component={Default} />
       </Switch>
       <MyModal />
+      <MyFooter />
     </React.Fragment>
   );
 }
