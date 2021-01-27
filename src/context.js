@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { detailProduct, storeProducts } from './data';
+// import { detailProduct, storeProducts } from './data';
 
 const ProductContext = React.createContext();
 
@@ -7,7 +7,7 @@ class ProductProvider extends Component {
     state = {
         products: [],
         detailsProduct: {},
-        modalProduct: detailProduct,
+        modalProduct: {},
         modalOpen: false,
         cart: [],
         cartTotal: 0,
@@ -20,20 +20,35 @@ class ProductProvider extends Component {
     }
     
     setProducts() { 
-        //testing connection to the server side
+        //filling in the database
+        // fetch('/setAllProducts')
+        // .then((response) => response.json())
+        // .then(data => console.log(data));
+
+        let tempProducts = [];
+
         fetch('/getProducts')
         .then((response) => response.json())
-        .then(data => console.log(data));
+        .then((DbProducts) => {
+            console.log(DbProducts);
+            DbProducts.forEach(item => {
+                const singleItem = {...item};
+                tempProducts.push(singleItem);
+            });
+            this.setState(() => {
+                return {products: tempProducts}
+            });
+        });
         
         //method to avoid passing of refferences to storeProducts items but instead passing the values to the state
-        let tempProducts = [];
-        storeProducts.forEach(item => {
-            const singleItem = {...item};
-            tempProducts.push(singleItem);
-        });
-        this.setState(() => {
-            return {products: tempProducts}
-        });
+        
+        // storeProducts.forEach(item => {
+        //     const singleItem = {...item};
+        //     tempProducts.push(singleItem);
+        // });
+        // this.setState(() => {
+        //     return {products: tempProducts}
+        // });
     }
 
     getItem = id => {

@@ -3,25 +3,20 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
+//For filling in the DB
+// import { storeProducts } from './data';
+
+
 const port = 8000;
 
 app.use(express.static(path.join(__dirname, 'build')));
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '31337Mproditicus',
-    database: 'sql_store'
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PWD,
+    database: process.env.MYSQL_DB
 });
-// multipleStatements: true
-// Once multiple statements enabled, you can execute multiple statement queries like any other query:
-
-// connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
-//   if (error) throw error;
-//   // `results` is an array with one element for every statement in the query:
-//   console.log(results[0]); // [{1: 1}]
-//   console.log(results[1]); // [{2: 2}]
-// });
 
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -29,16 +24,27 @@ const pool = mysql.createPool({
 
 app.get('/getProducts', (req, res) => {
     console.log('Handling DB request');
-    pool.query('SELECT * from customers', (err, rows) => {
+    pool.query('SELECT * from products', (err, rows) => {
         if (err) {
             res.send(err);
         } else {
             res.send(rows);
         }
     });
-    // const data = {"data": "Here is some data from the server"};
-    // res.send(data);
 });
+
+// Filling in the database
+// app.get('/setAllProducts', (req, res) => {
+//     const sql = 'INSERT INTO products (title, img, price, company, info, inCart, count, total) VALUES ?';
+//     pool.query(sql, [storeProducts], (err, rows) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(rows);
+//             console.log('Products added to DB');
+//         }
+//     })
+// });
 
 app.listen(port, () => {
     console.log("Server is listening on port " + port);
