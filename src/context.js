@@ -22,21 +22,21 @@ class ProductProvider extends Component {
     // }
 
     componentDidMount() {
-        const newProduct = {
-            // id: 14,
-            title: 'Model 3000', 
-            img: '../img/3.jpg', 
-            price: 2500, 
-            company: 'Models', 
-            info: 'This is a completely new model that you have not heard of bla bla bla...'
-        }
+        // const product = {
+        //     // id: 14,
+        //     title: 'Model 3000', 
+        //     img: '../img/5.jpg', 
+        //     price: 2500, 
+        //     company: 'Models', 
+        //     info: 'Это редкая модель, которую вы нигде больше не найдете...'
+        // }
         this.setProducts();
-        this.dbProductAdd(newProduct);
-        // this.dbProductDelete(14);
-        // this.dbProductEdit(newProduct);
+        // this.dbProductAdd(product);
+        // this.dbProductDelete(15);
+        // this.dbProductEdit(product, 5);
     }
     
-    setProducts() { 
+    setProducts = () => { 
         fetch('/products/')
         .then(response => {
             if (!response.ok) {
@@ -53,7 +53,7 @@ class ProductProvider extends Component {
         });
     }
 
-    saveProductsToState(productsArr) {
+    saveProductsToState = productsArr => {
         this.setState(() => {
             return {products: productsArr}
         });
@@ -213,7 +213,7 @@ class ProductProvider extends Component {
 
 ////////////MOVE TO A SEPARATE COMPONENT//////////
 //////////////////////////////////////////////////
-    dbProductAdd = (product) => {
+    dbProductAdd = product => {
         console.log('adding new product', JSON.stringify(product));
         fetch('/products/', {
             method: 'POST',
@@ -235,9 +235,9 @@ class ProductProvider extends Component {
         });
     }
 
-    dbProductEdit = (product) => {
+    dbProductEdit = (product, id) => {
         console.log('adding new product', JSON.stringify(product));
-        fetch('/products/' + product.id, {
+        fetch('/products/' + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -257,7 +257,7 @@ class ProductProvider extends Component {
         });
     }
 
-    dbProductDelete = (id) => {
+    dbProductDelete = id => {
         console.log('deleting product');
         fetch('/products/' + id, { method: 'DELETE' })
         .then(response => {
