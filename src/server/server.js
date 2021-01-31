@@ -2,14 +2,16 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 
-//For filling in the DB
+// For filling in the DB
 // import { storeProducts } from './data';
-
 
 const port = 8000;
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build'))); //might not be required
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
@@ -18,18 +20,48 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DB
 });
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-app.get('/getProducts', (req, res) => {
-    console.log('Handling DB request');
-    pool.query('SELECT * from products', (err, rows) => {
+app.get('/products/', (req, res) => {
+    console.log('Getting products from DB...');
+    const sql = 'SELECT * from products';
+    pool.query(sql, (err, rows) => {
         if (err) {
             res.send(err);
         } else {
             res.send(rows);
         }
+    });
+});
+
+app.post('/products/', (req, res) => {
+    console.log('Adding product to DB: ');
+    console.log(req.body);
+    const newProduct = req.body;
+    const sql = "INSERT INTO products SET ?";
+    pool.query(sql, newProduct, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+});
+
+app.put('/products/:product_id', (req, res) => {
+    console.log('Got body: ');
+    console.log(req.body);
+    const product = req.body;
+    const sql = `UPDATE products SET ? WHERE id = ${pool.escape(req.params.product_id)}`;
+    pool.query(sql, product, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+});
+
+app.delete('/products/:product_id', (req, res) => {
+    const sql = 'DELETE FROM products WHERE id = ' + pool.escape(req.params.product_id);
+    pool.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
     });
 });
 

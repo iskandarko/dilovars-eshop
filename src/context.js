@@ -15,47 +15,64 @@ class ProductProvider extends Component {
         orderTotal: 0
     }
 
+    // fillingDb() { 
+    //     fetch('/setAllProducts')
+    //     .then((response) => response.json())
+    //     .then(data => console.log(data));
+    // }
+
     componentDidMount() {
+        const newProduct = {
+            // id: 14,
+            title: 'Model 3000', 
+            img: '../img/3.jpg', 
+            price: 2500, 
+            company: 'Models', 
+            info: 'This is a completely new model that you have not heard of bla bla bla...'
+        }
         this.setProducts();
+        this.dbProductAdd(newProduct);
+        // this.dbProductDelete(14);
+        // this.dbProductEdit(newProduct);
     }
     
     setProducts() { 
-        //filling in the database
-        // fetch('/setAllProducts')
-        // .then((response) => response.json())
-        // .then(data => console.log(data));
-
-        let tempProducts = [];
-
-        fetch('/getProducts')
-        .then((response) => response.json())
+        fetch('/products/')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response is not OK');
+            }
+            return response.json();
+        })
         .then((DbProducts) => {
-            console.log(DbProducts);
-            DbProducts.forEach(item => {
-                const singleItem = {...item};
-                tempProducts.push(singleItem);
-            });
-            this.setState(() => {
-                return {products: tempProducts}
-            });
+            this.saveProductsToState(DbProducts);
+        })
+        .catch(error => {
+            alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
+            console.error('There has been a problem with the fetch operation: ', error);
         });
-        
-        //method to avoid passing of refferences to storeProducts items but instead passing the values to the state
-        
-        // storeProducts.forEach(item => {
-        //     const singleItem = {...item};
-        //     tempProducts.push(singleItem);
-        // });
-        // this.setState(() => {
-        //     return {products: tempProducts}
-        // });
     }
+
+    saveProductsToState(productsArr) {
+        this.setState(() => {
+            return {products: productsArr}
+        });
+    }
+
+    // COULD BE REQUIRED FOR PROPER COPYING OF DATA BEFORE SETTING TO STATE
+    // copyProducts(productsArr) {
+    //     let productsCopy = [];
+    //     productsArr.forEach(item => {
+    //         const singleItem = {...item};
+    //         productsCopy.push(singleItem);
+    //     });
+    //     return productsCopy;
+    // }
 
     getItem = id => {
         const product = this.state.products.find(item => item.id === id);
         return product;
     }
-
 
     handleDetails = id => {
         const product = this.getItem(id);
@@ -193,6 +210,70 @@ class ProductProvider extends Component {
             return {modalOpen: false}
         });
     }
+
+////////////MOVE TO A SEPARATE COMPONENT//////////
+//////////////////////////////////////////////////
+    dbProductAdd = (product) => {
+        console.log('adding new product', JSON.stringify(product));
+        fetch('/products/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(product)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response is not OK');
+            }
+            alert('Новый продукт успешно добавлен!');
+            return response.blob();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при взаимодействии с базой данных!');
+            console.error('There has been a problem with the fetch operation: ', error);
+        });
+    }
+
+    dbProductEdit = (product) => {
+        console.log('adding new product', JSON.stringify(product));
+        fetch('/products/' + product.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(product)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response is not OK');
+            }
+            alert('Продукт успешно обновлен!');
+            return response.blob();
+        })
+        .catch(error => {
+            alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
+            console.error('There has been a problem with the fetch operation: ', error);
+        });
+    }
+
+    dbProductDelete = (id) => {
+        console.log('deleting product');
+        fetch('/products/' + id, { method: 'DELETE' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response is not OK');
+            }
+            alert('Продукт успешно удален!');
+            return response.blob();
+        })
+        .catch(error => {
+            alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
+            console.error('There has been a problem with the fetch operation: ', error);
+        });
+    }
+//////////////////////////////////////////////////
+////////////MOVE TO A SEPARATE COMPONENT//////////
 
     render() { 
         return ( 

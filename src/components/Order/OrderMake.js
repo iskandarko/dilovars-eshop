@@ -85,7 +85,7 @@ class OrderMake extends React.Component {
 
     formDataToJson = formData  => {
         const entries = formData.entries();
-        const dataObj = Array.from(entries).reduce( (data, [key, value]) => {
+        const dataObj = Array.from(entries).reduce((data, [key, value]) => {
             data[key] = value;
             if (key === 'email') {
             data._replyTo = value;
