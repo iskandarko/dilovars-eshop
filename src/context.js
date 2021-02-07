@@ -12,7 +12,8 @@ class ProductProvider extends Component {
         cart: [],
         cartTotal: 0,
         order: [],
-        orderTotal: 0
+        orderTotal: 0,
+        adminMode: false
     }
 
     // fillingDb() { 
@@ -24,8 +25,8 @@ class ProductProvider extends Component {
     componentDidMount() {
         // const product = {
         //     // id: 14,
-        //     title: 'Model 3000', 
-        //     img: '../img/5.jpg', 
+        //     title: 'Model 2000', 
+        //     img: '../img/1.jpg', 
         //     price: 2500, 
         //     company: 'Models', 
         //     info: 'Это редкая модель, которую вы нигде больше не найдете...'
@@ -33,7 +34,7 @@ class ProductProvider extends Component {
         this.setProducts();
         // this.dbProductAdd(product);
         // this.dbProductDelete(15);
-        // this.dbProductEdit(product, 5);
+        // this.dbProductEdit(5, product);
     }
     
     setProducts = () => { 
@@ -45,7 +46,7 @@ class ProductProvider extends Component {
             return response.json();
         })
         .then((DbProducts) => {
-            this.saveProductsToState(DbProducts);
+            this.saveProductsToState(this.copyProducts(DbProducts));
         })
         .catch(error => {
             alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
@@ -60,14 +61,14 @@ class ProductProvider extends Component {
     }
 
     // COULD BE REQUIRED FOR PROPER COPYING OF DATA BEFORE SETTING TO STATE
-    // copyProducts(productsArr) {
-    //     let productsCopy = [];
-    //     productsArr.forEach(item => {
-    //         const singleItem = {...item};
-    //         productsCopy.push(singleItem);
-    //     });
-    //     return productsCopy;
-    // }
+    copyProducts(productsArr) {
+        let productsCopy = [];
+        productsArr.forEach(item => {
+            const singleItem = {...item};
+            productsCopy.push(singleItem);
+        });
+        return productsCopy;
+    }
 
     getItem = id => {
         const product = this.state.products.find(item => item.id === id);
@@ -213,6 +214,16 @@ class ProductProvider extends Component {
 
 ////////////MOVE TO A SEPARATE COMPONENT//////////
 //////////////////////////////////////////////////
+    turnAdminModeOn = () => {
+        console.log('Turning on manager mode');
+        this.setState({adminMode: true});
+    }
+
+    turnAdminModeOff = () => {
+        console.log('Turning off manager mode');
+        this.setState({adminMode: false});
+    }
+
     dbProductAdd = product => {
         console.log('adding new product', JSON.stringify(product));
         fetch('/products/', {
@@ -235,8 +246,8 @@ class ProductProvider extends Component {
         });
     }
 
-    dbProductEdit = (product, id) => {
-        console.log('adding new product', JSON.stringify(product));
+    dbProductEdit = (id, product) => {
+        console.log('editting the product', JSON.stringify(product));
         fetch('/products/' + id, {
             method: 'PUT',
             headers: {
@@ -291,7 +302,12 @@ class ProductProvider extends Component {
                     removeItem: this.removeItem,
                     clearCart: this.clearCart,
                     handleOrder: this.handleOrder,
-                    clearOrder: this.clearOrder
+                    clearOrder: this.clearOrder,
+                    turnAdminModeOn: this.turnAdminModeOn,
+                    turnAdminModeOff: this.turnAdminModeOff,
+                    dbProductDelete: this.dbProductDelete,
+                    dbProductEdit: this.dbProductEdit,
+                    dbProductAdd: this.dbProductAdd
                 }}
             >
                 {this.props.children}

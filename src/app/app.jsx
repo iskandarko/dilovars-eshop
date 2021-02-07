@@ -9,6 +9,7 @@ import MyModal from '../components/MyModal';
 import Default from '../components/Default';
 import LandingPage from '../components/LandingPage';
 import Order from '../components/Order/Order';
+import SiteAdmin from '../components/SiteAdmin/SiteAdmin';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/products/:id' component={Details} />
         <Route exact path='/cart' component={Cart} />
         <Route path="/order" component={Order} />
+        <Route path="/admin" component={SiteAdmin} />
         <Route component={Default} />
       </Switch>
       <MyModal />

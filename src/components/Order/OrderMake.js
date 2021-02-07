@@ -134,7 +134,7 @@ class OrderMake extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputEmail">Email</label>
+                            <label htmlFor="inputEmail">Эл. почта</label>
                             <input 
                                 name="Email" 
                                 type="email" 

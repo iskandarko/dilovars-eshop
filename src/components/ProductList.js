@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Product from './Product';
 import Title from './Title';
-import { ProductConsumer } from '../context';
-import { Container, Row} from 'react-bootstrap';
+import { ProductContext } from '../context';
+import AddProductBtn from './AddProductBtn';
 
 class ProductList extends Component {
     render() { 
@@ -10,27 +10,30 @@ class ProductList extends Component {
             <>
                 <Title name="Все" title="товары" />
                 <div className="mb-5">
-                    <Container> 
-                        <Row>
-                            <ProductConsumer>
-                                {value => {
-                                    return value.products.map(product => {
-                                        return (<Product 
-                                                    key={value.products.indexOf(product)} 
-                                                    product={product} 
-                                                    handleDetails={value.handleDetails}
-                                                    openModal={value.openModal}
-                                                    addToCart={value.addToCart}
-                                                />);
-                                    });
-                                }}
-                            </ProductConsumer>
-                        </Row>
-                    </Container>
+                    <div className="container"> 
+                        <div className="row">
+                            {this.context.products.map(product => {
+                                return (
+                                    <Product 
+                                        key={this.context.products.indexOf(product)} 
+                                        product={product} 
+                                        handleDetails={this.context.handleDetails}
+                                        openModal={this.context.openModal}
+                                        addToCart={this.context.addToCart}
+                                        adminMode={this.context.adminMode}
+                                        dbProductDelete={this.context.dbProductDelete}
+                                    />
+                                );
+                            })}
+                            {this.context.adminMode && <AddProductBtn />}
+                        </div>
+                    </div>
                 </div>
             </>
          );
     }
 }
  
+ProductList.contextType = ProductContext;
+
 export default ProductList;

@@ -18,13 +18,21 @@ class Product extends Component {
                                     height="200"
                                     loading="lazy"
                                     className="card-img-top preview"
-                                    src="../img/tiny.webp" 
+                                    src="../img/tiny.png" 
                                     alt="изображение_лота" 
                                 />
                             </div>
                         </Link>
-                        <Button 
-                            variant="success" 
+                        <span 
+                            className={this.props.adminMode ? "btn btn-danger" : "hidden"} 
+                            onClick={() => {
+                                this.props.dbProductDelete(id);
+                            }}
+                        >
+                            <strong>X</strong>
+                        </span>
+                        <button 
+                            className={this.props.adminMode ? "hidden" : "btn btn-success"}
                             disabled={inCart} 
                             onClick={() => {
                                 this.props.openModal(id);
@@ -32,7 +40,7 @@ class Product extends Component {
                             }}
                         >
                             {inCart ? <i className="fas fa-shopping-cart fa-lg"></i> : <i className="fas fa-cart-plus fa-lg"></i>}
-                        </Button>
+                        </button>
                         <p className="align-self-center mb-0 px-2"><strong>{price} ₽</strong></p>
                     </div>
                         

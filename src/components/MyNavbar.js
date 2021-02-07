@@ -10,7 +10,12 @@ class MyNavbar extends Component {
             <header>
                 <Navbar fixed="top" bg="dark" variant="dark" className="py-0">
                     <Link className="nav-link" to="/products">
-                        <Navbar.Brand >Models <i className="fas fa-paper-plane"></i> Shop</Navbar.Brand>
+                        <Navbar.Brand >
+                            Models 
+                            <i className="fas fa-paper-plane"></i> 
+                            Shop 
+                            <span style={{"color":"red"}} className={!this.context.adminMode && "hidden"}> (admin_mode)</span>
+                        </Navbar.Brand>
                     </Link>    
                         <Nav className="ml-auto">
                             <Link className="nav-link" to="/cart">

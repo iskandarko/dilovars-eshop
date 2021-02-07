@@ -45,7 +45,7 @@ app.post('/products/', (req, res) => {
 });
 
 app.put('/products/:product_id', (req, res) => {
-    console.log('Got body: ');
+    console.log('Updating product: ');
     console.log(req.body);
     const product = req.body;
     const sql = `UPDATE products SET ? WHERE id = ${pool.escape(req.params.product_id)}`;
@@ -57,6 +57,7 @@ app.put('/products/:product_id', (req, res) => {
 });
 
 app.delete('/products/:product_id', (req, res) => {
+    console.log('Deleting product ' + req.params.product_id);
     const sql = 'DELETE FROM products WHERE id = ' + pool.escape(req.params.product_id);
     pool.query(sql, (err, result) => {
         if (err) throw err;
