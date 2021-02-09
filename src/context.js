@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { detailProduct, storeProducts } from './data';
 
 const ProductContext = React.createContext();
 
@@ -23,18 +22,7 @@ class ProductProvider extends Component {
     // }
 
     componentDidMount() {
-        // const product = {
-        //     // id: 14,
-        //     title: 'Model 2000', 
-        //     img: '../img/1.jpg', 
-        //     price: 2500, 
-        //     company: 'Models', 
-        //     info: 'Это редкая модель, которую вы нигде больше не найдете...'
-        // }
         this.setProducts();
-        // this.dbProductAdd(product);
-        // this.dbProductDelete(15);
-        // this.dbProductEdit(5, product);
     }
     
     setProducts = () => { 
@@ -76,7 +64,10 @@ class ProductProvider extends Component {
     }
 
     handleDetails = id => {
-        const product = this.getItem(id);
+        let product = {};
+        if (id !== 'new') {
+            product = this.getItem(id);
+        }
         this.setState(() => {
             return {detailsProduct: product}
         });
@@ -212,7 +203,7 @@ class ProductProvider extends Component {
         });
     }
 
-////////////MOVE TO A SEPARATE COMPONENT//////////
+////////////ADMIN MODE METHODS////////////////////
 //////////////////////////////////////////////////
     turnAdminModeOn = () => {
         console.log('Turning on manager mode');
@@ -225,66 +216,72 @@ class ProductProvider extends Component {
     }
 
     dbProductAdd = product => {
-        console.log('adding new product', JSON.stringify(product));
-        fetch('/products/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(product)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response is not OK');
-            }
-            alert('Новый продукт успешно добавлен!');
-            return response.blob();
-        })
-        .catch(error => {
-            alert('Произошла ошибка при взаимодействии с базой данных!');
-            console.error('There has been a problem with the fetch operation: ', error);
-        });
+        if (this.state.adminMode) {
+            console.log('adding new product', JSON.stringify(product));
+            fetch('/products/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response is not OK');
+                }
+                alert('Новый продукт успешно добавлен!');
+                return response.blob();
+            })
+            .catch(error => {
+                alert('Произошла ошибка при взаимодействии с базой данных!');
+                console.error('There has been a problem with the fetch operation: ', error);
+            });
+        }
     }
 
     dbProductEdit = (id, product) => {
-        console.log('editting the product', JSON.stringify(product));
-        fetch('/products/' + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(product)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response is not OK');
-            }
-            alert('Продукт успешно обновлен!');
-            return response.blob();
-        })
-        .catch(error => {
-            alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
-            console.error('There has been a problem with the fetch operation: ', error);
-        });
+        if (this.state.adminMode) {
+            console.log('editting the product', JSON.stringify(product));
+            fetch('/products/' + id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response is not OK');
+                }
+                alert('Продукт успешно обновлен!');
+                return response.blob();
+            })
+            .catch(error => {
+                alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
+                console.error('There has been a problem with the fetch operation: ', error);
+            });
+        }
     }
 
     dbProductDelete = id => {
-        console.log('deleting product');
-        fetch('/products/' + id, { method: 'DELETE' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response is not OK');
-            }
-            alert('Продукт успешно удален!');
-            return response.blob();
-        })
-        .catch(error => {
-            alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
-            console.error('There has been a problem with the fetch operation: ', error);
-        });
+        if (this.state.adminMode) {
+            console.log('deleting product');
+            fetch('/products/' + id, { method: 'DELETE' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response is not OK');
+                }
+                alert('Продукт успешно удален!');
+                return response.blob();
+            })
+            .catch(error => {
+                alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
+                console.error('There has been a problem with the fetch operation: ', error);
+            });
+        }
     }
 //////////////////////////////////////////////////
-////////////MOVE TO A SEPARATE COMPONENT//////////
+////////////ADMIN MODE METHODS//////////
 
     render() { 
         return ( 
