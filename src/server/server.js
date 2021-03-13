@@ -3,6 +3,8 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const cors = require('cors');
 
 // For filling in the DB
 // import { storeProducts } from './data';
@@ -12,12 +14,37 @@ const port = 8000;
 app.use(express.static(path.join(__dirname, 'build'))); //might not be required
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+    cb(null, 'public/img')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' +file.originalname )
+  }
+})
+
+let upload = multer({ storage: storage }).single('file');
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PWD,
     database: process.env.MYSQL_DB
+});
+
+app.post('/upload', (req, res) => {
+    console.log("uploading file:");
+    console.log(req.body);
+    upload(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json(err);
+        } else if (err) {
+            return res.status(500).json(err);
+        }
+        return res.status(200).send(req.file);
+    });
 });
 
 app.get('/products/', (req, res) => {

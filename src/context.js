@@ -204,7 +204,7 @@ class ProductProvider extends Component {
     }
 
 ////////////ADMIN MODE METHODS////////////////////
-//////////////////////////////////////////////////
+
     turnAdminModeOn = () => {
         console.log('Turning on manager mode');
         this.setState({adminMode: true});
@@ -281,7 +281,6 @@ class ProductProvider extends Component {
         }
     }
 //////////////////////////////////////////////////
-////////////ADMIN MODE METHODS//////////
 
     render() { 
         return ( 

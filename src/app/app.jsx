@@ -10,6 +10,7 @@ import Default from '../components/Default';
 import LandingPage from '../components/LandingPage';
 import Order from '../components/Order/Order';
 import SiteAdmin from '../components/SiteAdmin/SiteAdmin';
+import FileUpload from '../components/FileUpload';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path='/cart' component={Cart} />
         <Route path="/order" component={Order} />
         <Route path="/admin" component={SiteAdmin} />
+        <Route path="/upload" component={FileUpload} />
         <Route component={Default} />
       </Switch>
       <MyModal />
