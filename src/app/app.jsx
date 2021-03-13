@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import MyNavbar from '../components/MyNavbar';
 import MyFooter from '../components/MyFooter';
 import ProductList from '../components/ProductList';
-import Details from '../components/Details';
+import Details from '../components/Details/Details';
 import Cart from '../components/Cart/Cart';
 import MyModal from '../components/MyModal';
 import Default from '../components/Default';

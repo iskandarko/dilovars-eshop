@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProductContext } from '../context';
+import { ProductContext } from '../../context';
 import { Link } from 'react-router-dom';
 
 class Details extends Component {
@@ -27,7 +27,7 @@ class Details extends Component {
     }
 
     render() { 
-        const {id, title, img, price, company, info, inCart } = this.context.detailsProduct;
+        const {id, title, img, price, company, info } = this.context.detailsProduct;
         return(
             <div>
                 <div className="my-5 container">
@@ -42,7 +42,7 @@ class Details extends Component {
                                     className="img-fluid" 
                                 />
                                 <input 
-                                    className={this.context.adminMode ? "form-control" : "hidden"}
+                                    className="form-control"
                                     name="img" 
                                     type="text" 
                                     id="img" 
@@ -50,37 +50,36 @@ class Details extends Component {
                                 />
                             </div>
                             <div className="col col-9 col-md-6 my-3 mx-auto">
-                                <h2>{!this.context.adminMode && title}</h2>
-                                <p className={this.context.adminMode ? "m-0" : "hidden"}><strong>Заголовок:</strong></p>
+                                <p className="m-0"><strong>Заголовок:</strong></p>
                                 <input 
-                                    className={this.context.adminMode ? "form-control" : "hidden"}
+                                    className="form-control"
                                     name="title" 
                                     type="text" 
                                     id="title" 
                                     defaultValue={title} 
                                 />
-                                <p className={this.context.adminMode && "m-0"}><strong>Производитель:</strong> {!this.context.adminMode && company}</p>
+                                <p className="m-0"><strong>Производитель:</strong></p>
                                 <input 
-                                    className={this.context.adminMode ? "form-control" : "hidden"}
+                                    className="form-control"
                                     name="company" 
                                     type="text" 
                                     id="company" 
                                     defaultValue={company} 
                                 />
-                                <p className={this.context.adminMode && "m-0"}><strong>Цена:</strong> {!this.context.adminMode && price} ₽</p>
+                                <p className="m-0"><strong>Цена:</strong></p>
                                 <input 
-                                    className={this.context.adminMode ? "form-control" : "hidden"}
+                                    className="form-control"
                                     name="price" 
                                     type="number" 
                                     id="price" 
                                     defaultValue={price} 
                                 />
-                                <p className={this.context.adminMode && "m-0"}><strong>Информация:</strong> <br/> {!this.context.adminMode && info}</p>
+                                <p className="m-0"><strong>Информация:</strong></p>
                                 <textarea 
-                                    className={this.context.adminMode ? "form-control" : "hidden"}
+                                    className="form-control"
                                     name="info" 
-                                    id="info" 
-                                    defaultValue={info} 
+                                    id="info"
+                                    defaultValue={info}
                                     rows="8"
                                     ></textarea>
                                 <div className="mt-3">
@@ -91,24 +90,15 @@ class Details extends Component {
                                             Назад
                                         </button>
                                     </Link>
-                                    <button className={this.context.adminMode ? "hidden" : "btn btn-success mx-2"}
-                                        type="button"
-                                        disabled={inCart}
-                                        onClick={() => {
-                                            this.context.openModal(id);
-                                            this.context.addToCart(id);
-                                            }}>
-                                        {inCart ? "В корзине" : "Купить"}
-                                    </button>
                                     <button 
                                         type="submit"
-                                        className={this.context.adminMode ? "btn btn-success mx-2" : "hidden"}
+                                        className="btn btn-success mx-2"
                                         >
                                         Сохранить
                                     </button>
                                     <button 
                                         type="button"
-                                        className={this.context.adminMode ? "btn btn-danger mx-2" : "hidden"}
+                                        className="btn btn-danger mx-2"
                                         onClick={() => {
                                             this.context.dbProductDelete(id);
                                         }}>
