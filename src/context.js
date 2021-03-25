@@ -12,7 +12,7 @@ class ProductProvider extends Component {
         cartTotal: 0,
         order: [],
         orderTotal: 0,
-        adminMode: false
+        isAdminMode: false
     }
 
     // fillingDb() { 
@@ -207,64 +207,16 @@ class ProductProvider extends Component {
 
     turnAdminModeOn = () => {
         console.log('Turning on manager mode');
-        this.setState({adminMode: true});
+        this.setState({isAdminMode: true});
     }
 
     turnAdminModeOff = () => {
         console.log('Turning off manager mode');
-        this.setState({adminMode: false});
-    }
-
-    dbProductAdd = product => {
-        if (this.state.adminMode) {
-            console.log('adding new product', JSON.stringify(product));
-            fetch('/products/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(product)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response is not OK');
-                }
-                alert('Новый продукт успешно добавлен!');
-                return response.blob();
-            })
-            .catch(error => {
-                alert('Произошла ошибка при взаимодействии с базой данных!');
-                console.error('There has been a problem with the fetch operation: ', error);
-            });
-        }
-    }
-
-    dbProductEdit = (id, product) => {
-        if (this.state.adminMode) {
-            console.log('editting the product', JSON.stringify(product));
-            fetch('/products/' + id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(product)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response is not OK');
-                }
-                alert('Продукт успешно обновлен!');
-                return response.blob();
-            })
-            .catch(error => {
-                alert('Произошла ошибка подключения к базе данных! Пожалуйста, проверьте подключение к интернету и повторите операцию.');
-                console.error('There has been a problem with the fetch operation: ', error);
-            });
-        }
+        this.setState({isAdminMode: false});
     }
 
     dbProductDelete = id => {
-        if (this.state.adminMode) {
+        if (this.state.isAdminMode) {
             console.log('deleting product');
             fetch('/products/' + id, { method: 'DELETE' })
             .then(response => {

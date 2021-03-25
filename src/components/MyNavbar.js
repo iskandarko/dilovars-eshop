@@ -14,7 +14,7 @@ class MyNavbar extends Component {
                             Models 
                             <i className="fas fa-paper-plane"></i> 
                             Shop 
-                            <span style={{"color":"red"}} className={!this.context.adminMode && "hidden"}> (admin_mode)</span>
+                            <span style={{"color":"red"}} className={!this.context.isAdminMode && "hidden"}> (admin_mode)</span>
                         </Navbar.Brand>
                     </Link>    
                         <Nav className="ml-auto">

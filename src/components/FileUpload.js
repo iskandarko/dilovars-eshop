@@ -32,15 +32,6 @@ class FileUpload extends React.Component {
         });
     }
 
-    formDataToObj = formData  => {
-        const entries = formData.entries();
-        const dataObj = Array.from(entries).reduce((data, [key, value]) => {
-            data[key] = value;
-            return data;
-        }, {});
-        return dataObj;
-    }
-
     render() { 
         return ( 
             <>

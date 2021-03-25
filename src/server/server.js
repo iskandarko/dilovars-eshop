@@ -17,13 +17,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-    cb(null, 'public/img')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' +file.originalname )
-  }
-})
+    destination: function (req, file, cb){ cb(null, 'public/img'); },
+    filename: function (req, file, cb){ cb(null, Date.now() + '-' + file.originalname); }
+    // filename: function (req, file, cb){ cb(null, file.originalname); }
+});
 
 let upload = multer({ storage: storage }).single('file');
 
@@ -35,7 +32,7 @@ const pool = mysql.createPool({
 });
 
 app.post('/upload', (req, res) => {
-    console.log("uploading file:");
+    console.log("Uploading a file:");
     console.log(req.body);
     upload(req, res, (err) => {
         if (err instanceof multer.MulterError) {

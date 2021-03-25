@@ -20,12 +20,12 @@ class ProductList extends Component {
                                         handleDetails={this.context.handleDetails}
                                         openModal={this.context.openModal}
                                         addToCart={this.context.addToCart}
-                                        adminMode={this.context.adminMode}
+                                        isAdminMode={this.context.isAdminMode}
                                         dbProductDelete={this.context.dbProductDelete}
                                     />
                                 );
                             })}
-                            {this.context.adminMode && <AddProductBtn />}
+                            {this.context.isAdminMode && <AddProductBtn />}
                         </div>
                     </div>
                 </div>

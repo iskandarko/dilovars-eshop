@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ProductContext } from '../../context';
 import { Link } from 'react-router-dom';
 
-class Details extends Component {
+class DetailsView extends Component {
 
     render() { 
         const {id, title, img, price, company, info, inCart } = this.context.detailsProduct;
@@ -48,6 +48,6 @@ class Details extends Component {
     }
 }
 
-Details.contextType = ProductContext;
+DetailsView.contextType = ProductContext;
  
-export default Details;
+export default DetailsView;

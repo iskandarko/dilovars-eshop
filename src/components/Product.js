@@ -24,7 +24,7 @@ class Product extends Component {
                             </div>
                         </Link>
                         <span 
-                            className={this.props.adminMode ? "btn btn-danger" : "hidden"} 
+                            className={this.props.isAdminMode ? "btn btn-danger" : "hidden"} 
                             onClick={() => {
                                 this.props.dbProductDelete(id);
                             }}
@@ -32,7 +32,7 @@ class Product extends Component {
                             <strong>X</strong>
                         </span>
                         <button 
-                            className={this.props.adminMode ? "hidden" : "btn btn-success"}
+                            className={this.props.isAdminMode ? "hidden" : "btn btn-success"}
                             disabled={inCart} 
                             onClick={() => {
                                 this.props.openModal(id);
